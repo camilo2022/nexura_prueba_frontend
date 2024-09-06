@@ -1,0 +1,29 @@
+<form (ngSubmit)="store()" #areasForm="ngForm">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h3 class="text-center">Registro de Area</h3>
+      <div class="col-lg-12">
+        <div class="form-group">
+          <label for="">Nombre del Area</label>
+            <input
+            matInput
+            id="name"
+            [(ngModel)]="area.name"
+            name="name"
+            class="form-control"
+            required
+            placeholder="Digite nombre del Area"
+            #name="ngModel">
+          <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+            <div *ngIf="name.errors?.['required']">
+              El nombre es requerido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-secondary m-1" (click)="index()">Devolver</button>
+      <button type="submit" class="btn btn-success m-1" [disabled]="!areasForm.form['valid']">Guardar</button>
+    </div>
+  </div>
+</form>

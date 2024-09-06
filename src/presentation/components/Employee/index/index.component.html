@@ -1,0 +1,82 @@
+<div class="col-md-12">
+  <a class="btn btn-warning mb-3" href="Roles">Roles</a>
+  <a class="btn btn-primary mb-3" href="Areas">Areas</a>
+
+  <h1>Gestionar Empleados</h1>
+  <a class="btn btn-info mb-3" href="Employees/Create">Crear Empleado</a>
+
+  <div class="mat-elevation-z8">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="searchEmployees()" placeholder="Ex. ium" #input [(ngModel)]="dataTable.search">
+    </mat-form-field>
+
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+          <!-- Columna Nombres -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> <fa-icon [icon]="faUser"></fa-icon> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <!-- Columna Nombres -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> <fa-icon [icon]="faAt"></fa-icon> Email </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+          </ng-container>
+
+          <!-- Columna Nombres -->
+          <ng-container matColumnDef="sex">
+            <th mat-header-cell *matHeaderCellDef> <fa-icon [icon]="faVenusMars"></fa-icon> Sexo </th>
+            <td mat-cell *matCellDef="let element"> @if(element.sex == 'M'){Masculino}@else{Femenino} </td>
+          </ng-container>
+
+          <!-- Columna Nombres -->
+          <ng-container matColumnDef="area">
+            <th mat-header-cell *matHeaderCellDef> <fa-icon [icon]="faBriefcase"></fa-icon> Area </th>
+            <td mat-cell *matCellDef="let element"> {{element.area.name}} </td>
+          </ng-container>
+
+          <!-- Columna Fecha de Creacion -->
+          <ng-container matColumnDef="bulletin">
+            <th mat-header-cell *matHeaderCellDef> <fa-icon [icon]="faEnvelope"></fa-icon> Boletin </th>
+            <td mat-cell *matCellDef="let element"> @if(element.bulletin == 1){SI}@else{NO} </td>
+          </ng-container>
+
+          <!-- Columna Acciones -->
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef> Modificar </th>
+            <td mat-cell *matCellDef="let element">
+              <button class="btn btn-info" (click)="edit(element.id)">
+                <fa-icon [icon]="faEdit"></fa-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <!-- Columna Acciones -->
+          <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+            <td mat-cell *matCellDef="let element">
+              <button class="btn btn-danger" (click)="delete(element)">
+                <fa-icon [icon]="faTrash"></fa-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+
+      <!-- Paginador para implemetar lazy loading -->
+    <mat-paginator
+      [pageSize]="dataTable.perPage"
+      [pageSize]="dataTable.per_page"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      [length]="dataTable.total"
+      (page)="onPageChange($event)"
+      showFirstLastButtons>
+    </mat-paginator>
+  </div>
+</div>

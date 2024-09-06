@@ -1,0 +1,29 @@
+<form (ngSubmit)="store()" #rolesForm="ngForm">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h3 class="text-center">Registro de Rol</h3>
+      <div class="col-lg-12">
+        <div class="form-group">
+          <label for="">Nombre del Rol</label>
+            <input
+            matInput
+            id="name"
+            [(ngModel)]="role.name"
+            name="name"
+            class="form-control"
+            required
+            placeholder="Digite nombre del Rol"
+            #name="ngModel">
+          <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+            <div *ngIf="name.errors?.['required']">
+              El nombre es requerido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-secondary m-1" (click)="index()">Devolver</button>
+      <button type="submit" class="btn btn-success m-1" [disabled]="!rolesForm.form['valid']">Guardar</button>
+    </div>
+  </div>
+</form>
